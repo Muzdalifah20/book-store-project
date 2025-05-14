@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <!-- <link rel="stylesheet" href="static/css/style.css"> -->
+</head>
+<body>
+    <div class="register-container">
+        <form action="/login" method="POST" >
+           
+                 
+            <div class="register-box">
+                    <label for="email">User Name</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email here... " autocomplete="on" required>
+            </div>
+            <div class="register-box">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password here..." required>
+            </div>
+            <div class="register-box">
+                <input type="submit" value="Log in">
+            </div>
+       
+        </form> 
+        <div >
+                    
+        <p> Don't have account? <a href="/register">Register</a> </p>
+        </div>
+    </div>
+
+    
+</body>
+</html>
+ 

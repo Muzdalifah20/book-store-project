@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booky Book shop</title>
+    <link rel="stylesheet" href="static/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <!-- First bar: login, signup, logo, search -->
+        <div class="first-bar">
+          <div class="log">
+            <a href="{{ url_for('login') }}">LogIn</a>
+
+            
+
+            <a href="/register">SignUp</a>
+          </div>
+          <div class="logo">
+            <i class="fa-solid fa-book-open-reader"></i>
+          </div>
+          <div class="search">
+            <input type="search" placeholder="Search all books...">
+          </div>
+          <!-- Cart removed from first bar -->
+        </div>
+      
+        <!-- Second nav bar: Books and Cart -->
+        <nav class="nav-bar">
+          <ul>
+            <li><a href="/books">Books</a></li>
+            <li class="cart-icon">
+              <a href="/cart">
+                <i class="fa-regular fa-cart-shopping"></i> Cart
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <div>
+         <h1 id="welcomeMessage"></h1>
+      </div>
+
+      <main>
+        <div class="books-container"></div>
+        <div class="cart-container"></div>
+      </main>
+
+    <!-- <script src="cart/static/session.js"></script> -->
+
+<script>
+
+  const userName = "{{ user_name|tojson|default('') }}";
+  if(userName){
+    localStorage.setItem("userName", userName)
+  }
+  window.addEventListener('load', () => {
+  // Handler 1: Show welcome message
+  const storedName = localStorage.getItem("userName");
+  if (storedName) {
+    const welcomeElem = document.getElementById("welcomeMessage");
+    if (welcomeElem) {
+      welcomeElem.textContent = `Welcome ${storedName}`;
+    }
+  }
+});
+
+window.addEventListener('load', () => {
+  // Handler 2: Load cart items
+  loadCart();
+});
+
+window.addEventListener('load', async () => {
+  // Handler 3: Fetch and display books asynchronously
+  const res = await fetch('/api/books');
+  const books = await res.json();
+  const container = document.querySelector('.books-container');
+  books.forEach(book => {
+    const card = document.createElement('div');
+    card.className = 'book-card';
+    card.innerHTML = `
+      <img src="${book.cover_image || ''}" alt="${book.title}" />
+      <h3>${book.title}</h3>
+      <p>$${book.price.toFixed(2)}</p>
+      <button data-id="${book.id}">Add to Cart</button>
+    `;
+    container.appendChild(card);
+  });
+
+  container.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', async () => {
+      const bookId = button.getAttribute('data-id');
+      const res = await fetch('/api/cart/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ book_id: parseInt(bookId) })
+      });
+      const data = await res.json();
+      alert(data.message);
+      await loadCart();
+    });
+  });
+});
+
+</script>
+
+</body>
+</html>
