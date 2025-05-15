@@ -1,20 +1,9 @@
 [
+    
     {
-        "first_name": "Muzdalifah Suliman",
-        "last_name": "Abdelrhman Eltayeb",
-        "email": "muzdalifa@gmail.com",
+        "first_name": "omer",
+        "last_name": "ali",
+        "email": "mozdalifanor@gmail.com",
         "password": "1234"
-    },
-    {
-        "first_name": "omer",
-        "last_name": "ali",
-        "email": "mozdalifazozo@gmail.com",
-        "password": "1234coola"
-    },
-    {
-        "first_name": "omer",
-        "last_name": "ali",
-        "email": "mozdalifzozo@gmail.com",
-        "password": "1234coola"
     }
 ]

@@ -1,12 +1,6 @@
 import json
 
-class Book:
-    def __init__(self, book_id, title, author, cover_image, price):
-        self.book_id = book_id
-        self.title = title
-        self.author = author
-        self.cover_image = cover_image
-        self.price = price
+ 
         
 class Book:
     def __init__(self, book_id,title, author, description, cover_image, price=None):
@@ -16,6 +10,17 @@ class Book:
         self.description = description
         self.cover_image = cover_image  # path or URL to image
         self.price = price
+
+    def to_dict(self):
+        return {
+            "book_id": self.book_id,
+            "title": self.title,
+            "author": self.author,
+            "description": self.description,
+            "cover_page": self.cover_image,
+            "price": self.price
+        }
+
 
 dopamine = Book(
     book_id = 1,
@@ -64,7 +69,5 @@ books.append(let_them)
 books.append(myth_of_normal)
 books.append(the_body_keeps_the_score)
 
-books_data = [book.__dict__ for book in books]
+books_data = [book.to_dict() for book in books]
 
-with open("books.json", "w") as file:
-    json.dump(books_data, file, indent=4)
