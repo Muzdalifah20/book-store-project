@@ -16,7 +16,9 @@ async function loadBooks() {
             <p><em>by ${book.author}</em></p>
              
             <p>Price: $${book.price.toFixed(2)}</p>
-            <button id= "add-cart">Add to Cart</button>
+            <form action="/login" method="get" id="add_cart">
+            <input type="submit"  value="Add to Cart">
+            </form>
           `;
           container.appendChild(card);
         });
