@@ -133,6 +133,14 @@
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
+main{
+  max-width: 600px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
   .books-container {
     /* max-width: 150px;   limits the width */
     /* height: auto;       keeps aspect ratio */

@@ -1,10 +1,11 @@
-from flask import Flask , request,jsonify
+from flask import Flask , request,jsonify ,session, url_for, redirect
 from utilities import get_html , usersdb
 import json
 from bookclass import books
 
-app = Flask(__name__)
 
+app = Flask(__name__)
+app.secret_key = "secret"
 # Registeration part
 def validate_user_input(new_user):
     for key, value in new_user.items():
@@ -39,7 +40,7 @@ def do_register():
     with open("usersdb.json", "w") as file:
         json.dump(users, file, indent=4)
 
-    return get_html("register", "")
+    return redirect(url_for("login"))
 
 # do the login
 def do_login():
@@ -59,7 +60,9 @@ def do_login():
         if user_log.get("email") == user.get("email"):
             # print(f"Comparing passwords: input='{password}' stored='{user.get('password')}'")
             if user_log.get("password") == user.get("password"):
-                return get_html("index")
+                email = user.get("email")
+                session["user_email"] = email
+                return redirect(url_for("user"))
             else:
                 return get_html("login","Password is not correct")
     return get_html("login", "User name is not correct")
@@ -72,12 +75,11 @@ def show_login():
 def index():
     return get_html("index")
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        return do_login()
-    else:
-        return show_login()
+@app.route("/user")
+def user():
+    if not session.get("user_email"):
+        return redirect(url_for("login"))
+    return get_html("user")
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -85,6 +87,20 @@ def register():
         return do_register()
     else:
         return get_html("register")
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return do_login()
+    else:
+        return show_login()
+    
+@app.route('/logout')
+def logout():
+    session.pop("user_name", None)
+    return redirect(url_for("login"))
+
+
     
 @app.route("/api/books")
 def api_books():

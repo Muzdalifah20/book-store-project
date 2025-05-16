@@ -14,8 +14,9 @@ async function loadBooks() {
             <img src="${book.cover_image}" alt="${book.title}" />
             <h3>${book.title}</h3>
             <p><em>by ${book.author}</em></p>
-            <p>${book.description}</p>
+             
             <p>Price: $${book.price.toFixed(2)}</p>
+            <button id= "add-cart">Add to Cart</button>
           `;
           container.appendChild(card);
         });

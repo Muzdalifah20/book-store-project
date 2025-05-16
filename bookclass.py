@@ -17,7 +17,7 @@ class Book:
             "title": self.title,
             "author": self.author,
             "description": self.description,
-            "cover_page": self.cover_image,
+            "cover_image": self.cover_image,
             "price": self.price
         }
 
@@ -69,5 +69,8 @@ books.append(let_them)
 books.append(myth_of_normal)
 books.append(the_body_keeps_the_score)
 
-books_data = [book.to_dict() for book in books]
+# books_data = [book.to_dict() for book in books]
+# print(books_data)
 
+
+ 
