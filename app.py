@@ -1,9 +1,9 @@
 from flask import Flask , request,jsonify ,session, url_for, redirect
 from utilities import get_html , usersdb
 import json
-from bookclass import books
+from bookclass import books 
 from datetime import timedelta
-
+# from carts import carts
 
 app = Flask(__name__)
 app.secret_key = "secret"
@@ -120,56 +120,119 @@ def api_books():
     return jsonify(books_data)
 
 # the cart section
-carts = {
-    "user_email":{
-        "books":{
-            "book1":{ "title":"hi", "price": 10, "quantity": 2},
-            "book1":{ "title":"ha", "price": 30, "quantity": 3}
-        }
-    }
-}
 
-@app.route("/api/cart/<user_email>", methods=["GET"])
-def get_cart(user_email):
-    cart = carts.get(user_email, {"books":{}})
-    return cart
+carts = {}
 
-@app.route("api/cart/<user_email>", methods=['POST'])
-def add_cart(user_email):
-    cart_data =  request.get_json()
-    book_id = cart_data.get("book_id")
-    title = cart_data.get("title")
-    price = cart_data.get("price")
-    quantity = cart_data.get("quantity")
+# # Dummy books data (replace with your real books)
+# books_list = [
+#     {"book_id": "1", "title": "Book One", "price": 10},
+#     {"book_id": "2", "title": "Book Two", "price": 15},
+# ]
 
-    # create a new cart for the user whose email is not in the carts, else give cart deteails
+# def find_book(book_id_int):
+def find_book(book_id):
+    try:
+        book_id_int = int(book_id)
+    except ValueError:
+        return None  # invalid book_id
+
+    for book in books:
+        if book.book_id == book_id_int:
+            return book
+    return None
+
+
+
+@app.route('/cart/add/<book_id>', methods=['POST'])
+def add_to_cart(book_id):
+    user_email = session.get("user_email")
+    if not user_email:
+        return redirect(url_for('login'))
+
+    book = find_book(book_id)
+    if not book:
+        return "Book not found", 404
+
     if user_email not in carts:
-        carts["user_email"] = {"books":{}}
-    
-    # show cart books
-    books = carts["user_email"]["books"]
+        carts[user_email] = {}
 
-    if book_id in books:
-        books[book_id]["quantity"] += quantity
+    user_cart = carts[user_email]
+
+    if book_id in user_cart:
+        user_cart[book_id]["quantity"] += 1
     else:
-        books[book_id] = {"title":title, "price":price,"quantity":quantity}
+        user_cart[book_id] = {
+            "title": book.title,
+            "price": book.price,
+            "quantity": 1
+        }
 
-    return jsonify(carts["user_email"])
+    # return redirect(url_for('cart'))
+    return jsonify({"message": "Item added to cart"}), 200
 
-@app.route("/api/cart/<user_email>/<book_id>", methods=['DELETE'])
-def remove_book(user_email, book_id):
-    if user_email in carts and book_id in carts[user_email]["books"]:
-        carts[user_email]["books"].pop(book_id)
-        return jsonify(carts["user_email"])
-    return jsonify({"error":"this book is not found"}), 404
 
-@app.route("/api/cart/<user_email>/clear", methods=['POST'])
-def clear_cart(user_email):
-    if user_email in carts:
-        carts[user_email]["books"] = {}
-    return jsonify({"message": "Your cart is cleared!"})
+@app.route('/cart/remove/<book_id>', methods=['POST'])
+def remove_from_cart(book_id):
+    user_email = session.get("user_email")
+    if not user_email:
+        return redirect(url_for('login'))
 
-@app.route("/cart")
+    user_cart = carts.get(user_email, {})
+    if book_id in user_cart:
+        if user_cart[book_id]["quantity"] > 1:
+            user_cart[book_id]["quantity"] -= 1
+        else:
+            del user_cart[book_id]
+
+    return redirect(url_for('cart'))
+
+@app.route('/cart')
 def cart():
-    return get_html("cart")
+    user_email = session.get("user_email")
+    if not user_email:
+        return redirect(url_for('login'))
 
+    user_cart = carts.get(user_email, {})
+
+    # Build the cart HTML string here
+    cart_html = ""
+    total = 0
+    for book_id, item in user_cart.items():
+        item_total = item["price"] * item["quantity"]
+        total += item_total
+        cart_html += f"""
+        <div>
+            <h3>{item['title']}</h3>
+            <p>Price: ${item['price']}</p>
+            <p>Quantity: {item['quantity']}</p>
+            <p>Subtotal: ${item_total}</p>
+            <form action="/cart/remove/{book_id}" method="POST">
+                <button type="submit">Remove one</button>
+            </form>
+        </div>
+        <hr>
+        """
+
+    cart_html += f"<h3>Total: ${total}</h3>"
+
+    # Pass the generated HTML to your get_html function to inject into template
+    return get_html("cart", user_email=user_email, cart_html=cart_html)
+
+ 
+
+
+#Search book endpoin
+@app.route("/api/search")
+def search_book():
+    query = request.args.get("query","").strip()
+    if not query:
+        return jsonify([])
+    
+    match_books = [book.to_dict() for book in books
+                   if book.matches_search(query) ]
+    return jsonify(match_books)
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
