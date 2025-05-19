@@ -24,7 +24,7 @@ def do_login():
     users = usersdb()
     for user in users:
         if email == user.get("email"):
-            # print(f"Comparing passwords: input='{password}' stored='{user.get('password')}'")
+           
             if password == user.get("password"):
                 email = user.get("email")
                     # adding session 
@@ -34,8 +34,7 @@ def do_login():
                 session["user_name"] = user.get("first_name", "").capitalize()
                 return redirect(url_for("user"))
             else:
-                # if "user_email" in session:
-                #     redirect(url_for("/user"))
+              
                 return get_html("login",{ "error":"Password is not correct"})
     return get_html("login", { "error":"User name is not correct"})
  
