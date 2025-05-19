@@ -1,4 +1,5 @@
- function incrementCartCount() {
+// function to increment the added to cart book 
+function incrementCartCount() {
   const countElem = document.getElementById('cart-count');
   let count = parseInt(countElem.textContent) || 0;
   count += 1;
@@ -35,7 +36,7 @@ function attachAddToCartListeners() {
   });
 }
 
-
+// loading the book inside the user page
 async function loadBooks() {
   const container = document.getElementById('books-container');
   try {
