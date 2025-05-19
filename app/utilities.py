@@ -1,5 +1,6 @@
 import json
 
+# creating html template
 def get_html(html_page, placeholders=None):
     if placeholders is None:
         placeholders = {}
@@ -13,7 +14,7 @@ def get_html(html_page, placeholders=None):
         return content
 
 
-    
+# json to save the users data  
 def usersdb():
     try:
         with open("data/usersdb.json","r")as file:
