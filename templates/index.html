@@ -5,46 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booky Book shop</title>
     <link rel="stylesheet" href="../static/css/style.css"/>
+ 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
-    <header>
-        <!-- First bar: login, signup, logo, search -->
-        <div class="first-bar">
-          <div class="log">
-            <a href="/login">LogIn</a>
-
-            
-
-            <a href="/register">SignUp</a>
+    <div id="header-placeholder"></div>
+    
+    <div class="first-bar">
+         <div class="search">
+            <input  id="search_input" type="search" placeholder="Search all books...">
+            <button id="search_button">Search</button>
           </div>
-          <div class="logo">
-            <i class="fa-solid fa-book-open-reader"></i>
           </div>
-          <!-- <div class="search">
-            <input type="search" placeholder="Search all books...">
-          </div> -->
-          <!-- Cart removed from first bar -->
-        </div>
-      
-        <!-- Second nav bar: Books and Cart -->
-        <nav class="nav-bar">
-          <ul>
-            <li><a href="/cart">Cart</a></li>
-            
-          </ul>
-        </nav>
-      </header>
-      <div>
-         <h1 id="welcomeMessage"></h1>
-      </div>
-
-     
+     <div id="search_result" style="padding: 1rem 2rem; color: goldenrod;"></div>
 
    <main>
-    <div id="books-container"></div>
+    <div id="books-container" class="books-container"></div>
    </main>
       
+  
+       <div id="footer-placeholder"></div>
    <script src="../static/main.js"></script>
+    <script src="../static/base.js"></script>
+    <script src="../static/search.js"></script>
 </body>
 </html>

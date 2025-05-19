@@ -1,184 +1,494 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 /* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 1rem;
-  }
-  
-  /* First bar styles */
-  .first-bar {
-    background-color: white;          /* white background */
-    color: goldenrod;                 /* goldenrod text */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 30px;
-    border-radius: 3px;
-    margin-bottom: 10px;
-  }
-  
-  .first-bar .log a {
-    color: goldenrod;
-    font-weight: bold;
-    text-decoration: none;
-    margin-right: 15px;
-  }
-  
-  .first-bar .log a:hover {
-    text-decoration: underline;
-  }
-  
-  .first-bar i {
-    color: goldenrod;
-    font-size: 30px;
-  }
-  
-  .first-bar input[type="search"] {
-    padding: 5px 10px;
-    border: 1px solid goldenrod;
-    border-radius: 3px;
-    font-size: 1rem;
-    color: goldenrod;
-  }
-  
-  /* Second nav bar styles */
-  .nav-bar {
-    background-color: goldenrod;      /* goldenrod background */
-    border-radius: 3px;
-  }
-  
-  .nav-bar ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .nav-bar ul li {
-    margin: 0 20px;
-  }
-  
-  .nav-bar ul li a {
-    color: white;                    /* white text */
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 15px 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px; /* space between icon and text */
-  }
-  
-  .nav-bar ul li a:hover {
-    background-color: white;
-    color: goldenrod;
-    border-radius: 3px;
-    transition: 0.3s;
-  }
-  
-  /* Optional: style cart icon */
-  .cart-icon i {
-    font-size: 20px;
-  }
-  
-  .book-card  {
-    width: 300px;   /* limits the width */
-    height: auto;       /* keeps aspect ratio */
-    display: flex;     /* removes inline spacing */
-    justify-content: space-between;
-    align-items: center;
-    flex-flow: column wrap;
-    margin: .1rem;
-    border: 1px solid goldenrod;
-    background-color: whitesmoke;
-    border-radius: 25px;
-    /* margin: 0 auto;     centers image if needed */
-}
-  .book-card img {
-    padding: .5rem;
-    border-radius: 10%;
-    width: 90%;
-    height: 300px;
-    object-fit:fill;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
-.book-card h3, p, button{
-  padding: .1rem;
+/* Layout */
+body {
+  background: #fff;
   color: #333;
-  text-align: center;
-  font-size: 1rem;
+  min-height: 100vh;
 }
 
-.book-card button{
-  background-color: goldenrod;
-  color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  cursor: pointer;
-  /* transition: background-color 0.3s ease; */
-  margin-bottom: 1rem;
-  padding: 5px;
-  border: .8px solid #efe6e6;
-}
+/* html {
+  overflow-y: scroll;
+} */
 
-.book-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+/* Navigation */
+nav {
+  background: goldenrod;
+  padding: 10px;
 }
-
-.book-card button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
-
-main{
-  max-width: 600px;
-  height: auto;
+nav ul.main-links {
+  list-style: none;
   display: flex;
-  justify-content: center;
+  gap: 18px;
   align-items: center;
-  flex-direction: row;
+  justify-content: center;
 }
-  .books-container {
-    /* max-width: 150px;   limits the width */
-    /* height: auto;       keeps aspect ratio */
-    display: flex;     /* removes inline spacing */
-    justify-content: space-between;
-    align-items: center;
-    flex-flow: row wrap;
-    margin: 0 auto;     /* centers image if needed */
-    padding: 5rem;
-    margin: 1rem;
+nav ul.main-links li {
+  position: relative;
 }
-  .cart-container {
-    /* max-width: 150px;   limits the width */
-    height: auto;       /* keeps aspect ratio */
-    display: flex;     /* removes inline spacing */
-    justify-content: center;
-    align-items: center;
-    flex-flow: row wrap;
-    padding: 5rem;
-    margin: 1rem;     /* centers image if needed */
+nav ul.main-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: block;
+}
+nav ul.main-links li a:hover {
+  background: #FEFAE0;
+  color: goldenrod;
+}
+/* Dropdown */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #FEFAE0;
+  min-width: 150px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  z-index: 1;
+}
+.dropdown-content li a {
+  color: goldenrod;
+  padding: 10px 16px;
+  font-weight: normal;
+}
+.dropdown-content ul,
+.dropdown-content li {
+  list-style: none;
+}
+.dropdown-content li a:hover {
+  background: goldenrod;
+  color: #fff;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropbtn {
+  cursor: pointer;
 }
 
+/* First bar (search bar) */
+.first-bar {
+  background: #fff;
+  color: goldenrod;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0;
+  margin-bottom: 12px;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.first-bar input[type="search"] {
+  padding: 6px 10px;
+  border: 1px solid goldenrod;
+  border-radius: 3px;
+  color: goldenrod;
+}
+#search_button {
+  background: goldenrod;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 6px 15px;
+  cursor: pointer;
+}
+#search_button:hover {
+  background: #cc9a00;
+}
+
+/* Book cards (main page) */
+.books-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+}
+.book-card {
+  width: 260px;
+  height: auto;
+  background: #FEFAE0;
+  border: 1px solid goldenrod;
+  border-radius: 14px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem 0;
+  transition: box-shadow 0.2s;
+}
+.book-card img {
+  width: 90%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+.book-card h3, .book-card p {
+  color: #333;
+  margin: 0.2rem 0;
+  text-align: center;
+  font-size: .9rem;
+}
+.book-card button {
+  background: goldenrod;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  position: sticky;
+  top: 3px;
+}
+.book-card button:hover {
+  background: #cc9a00;
+}
+.book-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.11);
+}
+
+/* Book cards (search results) */
+#search_result {
+  display: flex;
+  flex-wrap: wrap;           
+  gap: 12px;                  
+  justify-content: center;   
+  padding: 1rem 2rem;
+  color: goldenrod;
+  min-height: 100px;         /* Minimum height so empty looks okay */
+}
+
+/* Cart styles */
+.cart-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #FEFAE0;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
 .cart-item {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
 }
 .cart-item img {
+  width: 50px;
+  height: 80px;
+  object-fit: fill;
   border-radius: 4px;
 }
 .cart-item button {
-  background-color: #e74c3c;
-  color: white;
+  background: #e74c3c;
+  color: #fff;
   border: none;
   border-radius: 3px;
+  padding: 6px 12px;
   cursor: pointer;
 }
 .cart-item button:hover {
-  background-color: #c0392b;
+  background: #c0392b;
+}
+
+/* Footer */
+footer {
+  background: goldenrod;
+  color: #fff;
+  padding: 0.5em 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Welcome message */
+.welcome-message {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: goldenrod;
+  margin-bottom: 1.2rem;
+}
+
+/* Message box */
+#message-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background:#fff;
+  color: goldenrod;
+  padding: 15px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-weight: bold;
+  z-index: 10000;
+  display: none;
+  min-width: 250px;
+  text-align: center;
+}
+ 
+/* Container divs styling */
+
+.cart-container {
+  max-width: 600px;    
+  margin: 2rem auto;      
+  padding: 1rem 1.5rem;   
+  background-color: #FEFAE0; 
+  border-radius: 10px;    
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+}
+
+div > h3 {
+  margin-bottom: 6px;
+  color: #444;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+div > p {
+  margin: 4px 0;
+  color: #555;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.95rem;
+}
+
+/* Style the buttons */
+button {
+  background-color: goldenrod;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-top: 6px;
+}
+
+button:hover {
+  background-color: #cc9a00;
+}
+
+/* Style the quantity input */
+input[type="number"] {
+  width: 50px;
+  padding: 5px;
+  margin-left: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+/* Style horizontal rules */
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 8px 0;
+}
+
+/* Total price styling */
+h3:last-of-type {
+  color: goldenrod;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+/* Clear cart button styling */
+form[action="/cart/clear"] button {
+  /* width: 10%; */
+  padding: 7px 14px;
+  font-size: 1.1rem;
+  margin-top: 20px;
+  border-radius: 6px;
+  background-color: goldenrod;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form[action="/cart/clear"] button:hover {
+  background-color: #cc9a00;
+}
+
+/* Simple inline CSS for About page */
+.about-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+  background-color: #FEFAE0; 
+  border-radius: 10px;
+  color: #333;
 }
 
  
+.about-container p{
+  color: #555;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  padding-left: 1.2rem;
+}
+
+/* Center the form container */
+.register-container {
+  max-width: 360px;
+  margin: 6rem auto;
+  padding: 2rem;
+  background-color: #FEFAE0; /* warm light background */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+/* Error message */
+#error_message {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Labels */
+.register-box label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: goldenrod;
+  text-align: left;
+  font-size: 1rem;
+}
+
+/* Inputs */
+.register-box input[type="email"],
+.register-box input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid goldenrod;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.register-box input[type="email"]:focus,
+.register-box input[type="password"]:focus {
+  border-color: #cc9a00;
+  outline: none;
+}
+
+/* Submit button */
+.register-box input[type="submit"] {
+  width: 100%;
+  background-color: goldenrod;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.register-box input[type="submit"]:hover {
+  background-color: #cc9a00;
+}
+
+/* Register link */
+.register-container p {
+  margin-top: 1.2rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.register-container a {
+  color: goldenrod;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-container a:hover {
+  text-decoration: underline;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid goldenrod;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #cc9a00;
+  outline: none;
+}
+
+
+/* Logo link styling */
+.logo {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 3rem;
+  color: white;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  user-select: none;
+  cursor: pointer;
+  margin-right: 2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  transition: color 0.3s ease;
+}
+
+.logo:hover,
+.logo:focus {
+  color: #fff8dc; /* lighter golden shade on hover/focus */
+  outline: none;
+}
+
+/* MEDIA QUERY: Make layout stack vertically on small screens */
+@media (max-width: 600px) {
+  .books-container, #search_result {
+    flex-direction: column;
+    align-items: center;
+  }
+  .book-card, #search_result .book-card {
+    width: 95%;
+    max-width: 320px;
+  }
+  .cart-container, .about-container, .register-container {
+    padding: 1rem;
+    max-width: 98%;
+  }
+  .logo {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+  }
+  nav ul.main-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

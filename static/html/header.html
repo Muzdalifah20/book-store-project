@@ -1,9 +1,23 @@
+ 
+
 <nav>
-  <ul>
-    <li><a href="/index">Home</a></li>
-    <li><a href="/cart">Cart</a></li>
-    <li><a href="/register">Sign up</a></li>
-    <li><a href="/logout">Log out</a></li>
-    <li><a href="/login">Log in</a></li>
+  <ul class="main-links">
+    <li class="dropdown">
+      <a href="#" class="dropbtn">Account ▼</a>
+      <ul class="dropdown-content">
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/register">Sign up</a></li>
+        <li><a href="/logout" onclick="localStorage.clear()">Logout</a></li>
+      </ul>
+    </li>
+    <li><a href="/index" class="logo">Booky</a></li>
+    <!-- <li><a href="/cart">Cart</a></li> -->
+     <li>
+        <a href="/cart" id="cart-link">
+        Cart <span id="cart-count" style="display:none; background: #daa520; color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.8rem;">0</span>
+      </a>
+     </li>
+   
+    <li><a href="/about">About</a></li>
   </ul>
 </nav>

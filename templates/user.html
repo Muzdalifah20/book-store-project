@@ -3,121 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Booky Book Store User Account</title>
     <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+ 
 
 </head>
 <body>
-
-    <header>
-           <div class="first-bar">
-          <div class="log">
-            <a href="/login">LogIn</a>
-
-            
-
-            <a href="/register">SignUp</a>
-          </div>
-          <div class="logo">
-            <i class="fa-solid fa-book-open-reader"></i>
-          </div>
-          <!-- <div class="search">
-            <input type="search" placeholder="Search all books...">
-          </div> -->
-           
-        </div>
-        <nav class="nav-bar">
-          <ul>
-            <li><a href="/cart">Cart</a></li>
-            <li>
-                 <form action="/logout" method="get">
-                    <input type="submit" value="log out">
-                </form>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    
-   <main>
-      
-    <section class="book">
-        <div id="books-container"></div>
-    </section>
+<div id="header-placeholder"></div>
  
-   
+ <main>
+     <div class="first-bar">
+         <div class="search">
+            <input  id="search_input" type="search" placeholder="Search all books...">
+            <button id="search_button">Search</button>
+          </div>
+          </div>
+     <div id="search_result" style="padding: 1rem 2rem; color: goldenrod;"></div>
+  
+  <div id="welcome-message" class="welcome-message"></div>
+  <div id="books-container" class="books-container"></div>
+  <div id="message-box" style="display:none; padding:10px; margin:10px; border:1px solid #ccc; color: goldenrod;"></div>
+
+</main>
+
+<div id="footer-placeholder"></div>  
+
    <script>
-//     
-
-function attachAddToCartListeners() {
-   
-    // Attach event listeners to all add-to-cart buttons
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-      button.addEventListener('click', async (event) => {
-        event.preventDefault()
-        const bookId = button.getAttribute('data-book-id');
-
-        // Show confirmation dialog
-      const confirmed = confirm("Do you want to add this item to your cart?");
-      if (!confirmed) {
-        // User clicked "Cancel", stop the addition
-        return;
-      }
-
-        try {
-          const response = await fetch(`/cart/add/${bookId}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          });
-
-          if (response.ok) {
-             const data = await response.json();
-          alert(data.message);  // Show alert on the same page
-            // Optionally update cart UI or cart count here without page reload
-          } else {
-            alert('Failed to add item to cart.');
-          }
-        } catch (error) {
-          console.error('Error adding to cart:', error);
-          alert('An error occurred.');
-        }
-      });
-    });
-  
-}  
-
-async function loadBooks() {
-  const container = document.getElementById('books-container');
-  try {
-    const res = await fetch('/api/books');
-    const books = await res.json();
-    container.innerHTML = '';
-    books.forEach(book => {
-      const div = document.createElement('div');
-      div.innerHTML = `
-        <h3>${book.title}</h3>
-        <p>Price: $${book.price}</p>
-        
-          <button class="add-to-cart-btn" data-book-id="${book.book_id}">Add to Cart</button>
-
-
-        
-      `;
-      container.appendChild(div);
-    });
-
-    attachAddToCartListeners(); // Attach listeners after buttons are created
-  } catch {
-    container.textContent = 'Failed to load books.';
-  }
-}
-
-loadBooks();
+    localStorage.setItem('user_name', '$$user_name$$');    
+function welcome(){
+  const welcomeMessage = document.getElementById("welcome-message")
+  const userName = localStorage.getItem('user_name')
+  welcomeMessage.innerHTML = `Welcome ${userName}`
+} 
+welcome();
+ 
    </script>
+   <script src="../static/user.js">
+   </script>
+   <script src="../static/base.js"></script>
+    <script src="../static/search.js"></script>
 
-  
-    
 </body>
 </html>

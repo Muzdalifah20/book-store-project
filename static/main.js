@@ -1,4 +1,5 @@
-async function loadBooks() {
+ 
+    async function loadBooks() {
       try {
         const response = await fetch('/api/books');
        
@@ -17,7 +18,7 @@ async function loadBooks() {
              
             <p>Price: $${book.price.toFixed(2)}</p>
             <form action="/login" method="get" id="add_cart">
-            <input type="submit"  value="Add to Cart">
+            <button type="submit">Add to Cart</button>
             </form>
           `;
           container.appendChild(card);
@@ -28,4 +29,10 @@ async function loadBooks() {
       }
     }
 
-    window.addEventListener('load', loadBooks);
+     
+    loadBooks();
+
+
+
+
+   
