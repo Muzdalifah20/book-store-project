@@ -1,3 +1,4 @@
+// function to search for book that give the title and the author , i put it inside a function so to be able to use it in the user and index page without showing error 
 (()=>{
     const search_button = document.getElementById("search_button")
     search_button.addEventListener('click', async ()=>{
