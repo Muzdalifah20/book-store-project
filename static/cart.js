@@ -1,4 +1,4 @@
-
+// this is for updaing the quantity of the cart
     async function updateQuantity(bookId) {
   const input = document.getElementById(`quantity-${bookId}`);
   const quantity = parseInt(input.value);
